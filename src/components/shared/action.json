@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_shared_actions",
+  "info": {
+    "displayName": "Action"
+  },
+  "options": {},
+  "attributes": {
+    "Label": {
+      "type": "string",
+      "required": true
+    },
+    "ActionExternalUrl": {
+      "type": "string"
+    },
+    "ActionInternalRoute": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

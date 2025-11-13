@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "videos",
+  "info": {
+    "singularName": "video",
+    "pluralName": "videos",
+    "displayName": "Video"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "text"
+    },
+    "VideoUrl": {
+      "type": "string"
+    },
+    "video_category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::video-category.video-category",
+      "inversedBy": "videos"
+    }
+  }
+}
