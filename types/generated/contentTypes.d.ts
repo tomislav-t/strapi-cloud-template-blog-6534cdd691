@@ -579,6 +579,7 @@ export interface ApiCalendarEntryCalendarEntry
     draftAndPublish: true;
   };
   attributes: {
+    Actions: Schema.Attribute.Component<'shared.action', true>;
     calendar_entry_category: Schema.Attribute.Relation<
       'manyToOne',
       'api::calendar-entry-category.calendar-entry-category'
@@ -594,6 +595,10 @@ export interface ApiCalendarEntryCalendarEntry
       'api::calendar-entry.calendar-entry'
     > &
       Schema.Attribute.Private;
+    Media: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
     Name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     Time: Schema.Attribute.Time;

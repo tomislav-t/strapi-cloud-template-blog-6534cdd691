@@ -28,6 +28,21 @@
     },
     "Description": {
       "type": "text"
+    },
+    "Actions": {
+      "type": "component",
+      "component": "shared.action",
+      "repeatable": true
+    },
+    "Media": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
     }
   }
 }
