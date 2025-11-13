@@ -14,6 +14,9 @@
     },
     "ActionInternalRoute": {
       "type": "string"
+    },
+    "iconName": {
+      "type": "string"
     }
   },
   "config": {}

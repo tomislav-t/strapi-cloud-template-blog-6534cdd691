@@ -12,19 +12,36 @@
   "pluginOptions": {},
   "attributes": {
     "Title": {
-      "type": "string"
+      "type": "string",
+      "required": true,
+      "unique": true
     },
     "Description": {
       "type": "text"
     },
     "VideoUrl": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "video_category": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::video-category.video-category",
       "inversedBy": "videos"
+    },
+    "PublishFrom": {
+      "type": "datetime"
+    },
+    "PublishTo": {
+      "type": "datetime"
+    },
+    "NumberOfViews": {
+      "type": "biginteger"
+    },
+    "Actions": {
+      "type": "component",
+      "component": "shared.action",
+      "repeatable": true
     }
   }
 }

@@ -531,6 +531,78 @@ export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiCalendarEntryCategoryCalendarEntryCategory
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'calendar_entry_categories';
+  info: {
+    displayName: 'Calendar Entry Category';
+    pluralName: 'calendar-entry-categories';
+    singularName: 'calendar-entry-category';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    calendar_entries: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::calendar-entry.calendar-entry'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Description: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::calendar-entry-category.calendar-entry-category'
+    > &
+      Schema.Attribute.Private;
+    Name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiCalendarEntryCalendarEntry
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'calendar_entries';
+  info: {
+    displayName: 'Calendar Entry';
+    pluralName: 'calendar-entries';
+    singularName: 'calendar-entry';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    calendar_entry_category: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::calendar-entry-category.calendar-entry-category'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Date: Schema.Attribute.Date;
+    Description: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::calendar-entry.calendar-entry'
+    > &
+      Schema.Attribute.Private;
+    Name: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    Time: Schema.Attribute.Time;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
   collectionName: 'categories';
   info: {
@@ -563,35 +635,6 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiEventEvent extends Struct.CollectionTypeSchema {
-  collectionName: 'events';
-  info: {
-    displayName: 'Event';
-    pluralName: 'events';
-    singularName: 'event';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    Actions: Schema.Attribute.Component<'shared.action', true>;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    Date: Schema.Attribute.Date;
-    Description: Schema.Attribute.Text;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::event.event'> &
-      Schema.Attribute.Private;
-    Name: Schema.Attribute.String;
-    publishedAt: Schema.Attribute.DateTime;
-    Time: Schema.Attribute.Time;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   collectionName: 'globals';
   info: {
@@ -615,6 +658,14 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
       'api::global.global'
     > &
       Schema.Attribute.Private;
+    menuItems: Schema.Attribute.Component<'shared.action', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 5;
+          min: 1;
+        },
+        number
+      >;
     publishedAt: Schema.Attribute.DateTime;
     siteDescription: Schema.Attribute.Text & Schema.Attribute.Required;
     siteName: Schema.Attribute.String & Schema.Attribute.Required;
@@ -646,7 +697,9 @@ export interface ApiVideoCategoryVideoCategory
       'api::video-category.video-category'
     > &
       Schema.Attribute.Private;
-    Name: Schema.Attribute.String;
+    Name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -666,6 +719,7 @@ export interface ApiVideoVideo extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    Actions: Schema.Attribute.Component<'shared.action', true>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -673,8 +727,13 @@ export interface ApiVideoVideo extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::video.video'> &
       Schema.Attribute.Private;
+    NumberOfViews: Schema.Attribute.BigInteger;
     publishedAt: Schema.Attribute.DateTime;
-    Title: Schema.Attribute.String;
+    PublishFrom: Schema.Attribute.DateTime;
+    PublishTo: Schema.Attribute.DateTime;
+    Title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -682,7 +741,7 @@ export interface ApiVideoVideo extends Struct.CollectionTypeSchema {
       'manyToOne',
       'api::video-category.video-category'
     >;
-    VideoUrl: Schema.Attribute.String;
+    VideoUrl: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -1199,8 +1258,9 @@ declare module '@strapi/strapi' {
       'api::about.about': ApiAboutAbout;
       'api::article.article': ApiArticleArticle;
       'api::author.author': ApiAuthorAuthor;
+      'api::calendar-entry-category.calendar-entry-category': ApiCalendarEntryCategoryCalendarEntryCategory;
+      'api::calendar-entry.calendar-entry': ApiCalendarEntryCalendarEntry;
       'api::category.category': ApiCategoryCategory;
-      'api::event.event': ApiEventEvent;
       'api::global.global': ApiGlobalGlobal;
       'api::video-category.video-category': ApiVideoCategoryVideoCategory;
       'api::video.video': ApiVideoVideo;

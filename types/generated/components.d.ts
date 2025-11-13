@@ -8,6 +8,7 @@ export interface SharedAction extends Struct.ComponentSchema {
   attributes: {
     ActionExternalUrl: Schema.Attribute.String;
     ActionInternalRoute: Schema.Attribute.String;
+    iconName: Schema.Attribute.String;
     Label: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }

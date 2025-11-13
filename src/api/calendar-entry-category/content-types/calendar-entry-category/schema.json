@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "video_categories",
+  "collectionName": "calendar_entry_categories",
   "info": {
-    "singularName": "video-category",
-    "pluralName": "video-categories",
-    "displayName": "Video Category"
+    "singularName": "calendar-entry-category",
+    "pluralName": "calendar-entry-categories",
+    "displayName": "Calendar Entry Category"
   },
   "options": {
     "draftAndPublish": true
@@ -19,11 +19,11 @@
     "Description": {
       "type": "text"
     },
-    "videos": {
+    "calendar_entries": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::video.video",
-      "mappedBy": "video_category"
+      "target": "api::calendar-entry.calendar-entry",
+      "mappedBy": "calendar_entry_category"
     }
   }
 }
